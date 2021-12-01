@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS livro (
     autor_id INT NOT NULL,
     FOREIGN KEY (genero_id) REFERENCES genero(id_genero),
     FOREIGN KEY (editora_id) REFERENCES editora(id_editora),
-    FOREIGN KEY (id_autor) REFERENCES autor(autor_id)
+    FOREIGN KEY (autor_id) REFERENCES autor(id_autor)
 );
 
 DROP TABLE IF EXISTS exemplar ;
