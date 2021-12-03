@@ -1,6 +1,8 @@
 DROP SCHEMA IF EXISTS Biblioteca ;
 
-CREATE SCHEMA IF NOT EXISTS Biblioteca DEFAULT CHARACTER SET utf8 ;
+CREATE SCHEMA IF NOT EXISTS Biblioteca 
+	DEFAULT CHARACTER SET  utf8mb4;
+	
 USE Biblioteca ;
 
 DROP TABLE IF EXISTS editora ;
@@ -25,7 +27,7 @@ CREATE TABLE IF NOT EXISTS autor (
 DROP TABLE IF EXISTS livro ;
 CREATE TABLE IF NOT EXISTS livro (
     id_livro INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    isbn VARCHAR(45) NOT NULL,
+    isbn VARCHAR(45) NOT NULL UNIQUE,
     titulo VARCHAR(45) NOT NULL,
     edicao VARCHAR(45) NOT NULL,
     volume VARCHAR(45) NULL,
@@ -45,6 +47,16 @@ CREATE TABLE IF NOT EXISTS exemplar (
     FOREIGN KEY (isbn) REFERENCES livro(isbn)
 );
 
+DROP TABLE IF EXISTS usuario ;
+CREATE TABLE IF NOT EXISTS usuario (
+    id_usuario INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    cpf VARCHAR(45) NOT NULL,
+    nome VARCHAR(45) NOT NULL,
+    endereco VARCHAR(45) NOT NULL,
+    telefone VARCHAR(45) NOT NULL,
+    email VARCHAR(45) NOT NULL
+);
+
 DROP TABLE IF EXISTS emprestimo ;
 CREATE TABLE IF NOT EXISTS emprestimo (
     id_emprestimo INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -54,14 +66,4 @@ CREATE TABLE IF NOT EXISTS emprestimo (
     data_devolucao DATE NOT NULL,
     FOREIGN KEY (usuario_id) REFERENCES usuario (id_usuario),
     FOREIGN KEY (exemplar_id) REFERENCES exemplar (id_exemplar)
-);
-
-DROP TABLE IF EXISTS usuario ;
-CREATE TABLE IF NOT EXISTS usuario (
-    id_usuario INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    cpf VARCHAR(45) NOT NULL,
-    nome VARCHAR(45) NOT NULL,
-    endereco VARCHAR(45) NOT NULL,
-    telefone VARCHAR(45) NOT NULL,
-    email VARCHAR(45) NOT NULL
 );
