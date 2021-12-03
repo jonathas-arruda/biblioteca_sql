@@ -34,8 +34,12 @@ CREATE TABLE IF NOT EXISTS livro (
     genero_id INT NOT NULL,
     editora_id INT NOT NULL,
     autor_id INT NOT NULL,
+    
+    CONSTRAINT FK_livro_genero
     FOREIGN KEY (genero_id) REFERENCES genero(id_genero),
+    CONSTRAINT FK_livro_editora
     FOREIGN KEY (editora_id) REFERENCES editora(id_editora),
+    CONSTRAINT FK_livro_autor
     FOREIGN KEY (autor_id) REFERENCES autor(id_autor)
 );
 
@@ -44,6 +48,8 @@ CREATE TABLE IF NOT EXISTS exemplar (
     id_exemplar INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     isbn VARCHAR(45) NOT NULL,
     numero_exemplar VARCHAR(45) NULL,
+    
+    CONSTRAINT FK_exemplar_livro
     FOREIGN KEY (isbn) REFERENCES livro(isbn)
 );
 
@@ -64,6 +70,9 @@ CREATE TABLE IF NOT EXISTS emprestimo (
     exemplar_id INT NOT NULL,
     data_emprestimo DATE NOT NULL,
     data_devolucao DATE NOT NULL,
+    
+    CONSTRAINT FK_emprestimo_usuario
     FOREIGN KEY (usuario_id) REFERENCES usuario (id_usuario),
+    CONSTRAINT FK_emprestimo_exemplar
     FOREIGN KEY (exemplar_id) REFERENCES exemplar (id_exemplar)
 );
